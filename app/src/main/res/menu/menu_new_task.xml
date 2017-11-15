@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="clssapp.todoapp.NewTask">
+
+    <!--  Done -->
+    <item
+        android:id="@+id/action_done"
+        android:title="@string/ab_item_done"
+        android:icon="@drawable/ic_action_done"
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView"/>
+
+</menu>

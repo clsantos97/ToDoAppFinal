@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -40,29 +42,29 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            openNewTask();
+                openNewTask();
                 /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
             }
         });
 
         initDb();
-        listar();
+        showAll();
     }
 
-    public void initDb(){
+    public void initDb() {
 
         // Init DB
         db = openOrCreateDatabase("ToDoListDb", Context.MODE_PRIVATE, null);
 
-        //db.execSQL("DROP TABLE item");
+        db.execSQL("DROP TABLE item");
         db.execSQL("CREATE TABLE IF NOT EXISTS item(" +
-                "item_id INTEGER PRIMARY KEY,name VARCHAR,task VARCHAR, date VARCHAR, time VARCHAR);");
+                "item_id INTEGER PRIMARY KEY,task VARCHAR,description VARCHAR, date VARCHAR, time VARCHAR);");
         db.execSQL("DELETE FROM item");
 
-        if (!isDbItemsEmpty()) {
-            insertMockData();
-        }
+        //if (!isDbItemsEmpty()) {
+        insertMockData();
+        //}
     }
 
     @Override
@@ -97,17 +99,17 @@ public class MainActivity extends AppCompatActivity {
                 // se seleccionó correctamente la provincia
                 //t.setText("Se ha seleccionado:\n"+data.getStringExtra("PROVINCIA"));
                 try {
-                    db.execSQL("INSERT INTO item (name, task, date, time) VALUES ('" + data.getStringExtra("NAME") + "','" +
-                            data.getStringExtra("TASK") + "','" +
+                    db.execSQL("INSERT INTO item (task, date, time, description) VALUES ('" + data.getStringExtra("TASK") + "','" +
                             data.getStringExtra("DATE") + "','" +
-                            data.getStringExtra("TIME") + "')");
+                            data.getStringExtra("TIME") + "','" +
+                            data.getStringExtra("DESCRIPTION") + "')");
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     logger.info("New task insert error.");
                 }
 
-                listar();
+                showAll();
             } else {
                 logger.info("New res task insert error.");
             }
@@ -117,20 +119,27 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Muestra listado de discos
      */
-    public void listar() {
-        ArrayAdapter<String> adaptador;
-        List<String> lista = new ArrayList<String>();
+    public void showAll() {
+        /*ArrayAdapter<String> adaptador;*/
+        ArrayList<TaskItem> taskList = new ArrayList<TaskItem>();
         Cursor c = db.rawQuery("SELECT * FROM item", null);
 
         if (c.getCount() == 0) {
-            lista.add("No hay registros");
+            //lista.add("No hay registros");
         } else {
-            while (c.moveToNext())
-                lista.add(c.getString(0) + " " + c.getString(1) + " - " + c.getString(2) + "   " + c.getString(3) + "  " + c.getString(4));
+            while (c.moveToNext()) {
+                taskList.add(new TaskItem(Integer.parseInt(c.getString(0)), c.getString(1), c.getString(2), c.getString(3), c.getString(4)));
+            }
+            //System.out.println(c.getString(0) + " " + c.getString(1) + " - " + c.getString(2) + "   " + c.getString(3) + "  " + c.getString(4));
         }
 
-        adaptador = new ArrayAdapter<String>(getApplicationContext(), R.layout.default_listview, lista);
-        lvToDo.setAdapter(adaptador);
+        // Create the adapter to convert the array to views
+        TaskAdapter taskAdapter = new TaskAdapter(this, taskList);
+        // Attach the adapter to a ListView
+
+        lvToDo.setAdapter(taskAdapter);
+
+
         c.close();
     }
 
@@ -153,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < 5; i++) {
                 try {
                     //db.execSQL("INSERT INTO item VALUES (" + i + 1 + ",'" + "Task" + "','" + "Task Description" + "','" + "08/11/2017" + "','" + "17:00" + "')");
-                    db.execSQL("INSERT INTO item (name, task, date, time) VALUES ('Task','TaskDescription','08/11/2017','18:00')");
+                    db.execSQL("INSERT INTO item (task, date, time, description) VALUES ('Task','08/11/2017','18:00','TaskDescription')");
                 } catch (Exception e) {
                     e.printStackTrace();
                     logger.info("Error al insertar mockdata.");
@@ -166,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void openNewTask(){
+    public void openNewTask() {
         Intent intent = new Intent(this, NewTask.class);
         startActivityForResult(intent, CREATE_ITEM);
     }
