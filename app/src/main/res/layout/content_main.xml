@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/default_bg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="clssapp.todoapp.MainActivity"
     tools:showIn="@layout/activity_main">
@@ -19,5 +20,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:listSelector="@drawable/list_color_selector"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp" />
 </android.support.constraint.ConstraintLayout>

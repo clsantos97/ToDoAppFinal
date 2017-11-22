@@ -2,16 +2,13 @@ package clssapp.todoapp;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.text.format.Time;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -21,15 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.logging.Logger;
 
-public class NewTask extends AppCompatActivity implements View.OnClickListener {
+public class UpdateTask extends AppCompatActivity implements View.OnClickListener {
 
-    private static final Logger logger = Logger.getLogger(NewTask.class.getName());
+    private static final Logger logger = Logger.getLogger(UpdateTask.class.getName());
     private static SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     private Calendar cal;
 
@@ -41,11 +35,14 @@ public class NewTask extends AppCompatActivity implements View.OnClickListener {
     private ImageButton btnDate;
     private CheckBox cbDate;
     private LinearLayout lyDate;
+    private TaskItem taskItem = new TaskItem();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_task);
+        setContentView(R.layout.activity_update_task);
 
         // Setup action bar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -124,7 +121,7 @@ public class NewTask extends AppCompatActivity implements View.OnClickListener {
         d.show();
     }
 
-    public void addTask(MenuItem item){
+    public void updateTask(MenuItem item){
             // TODO EditText Validations
 
             if(formValid()){
@@ -175,5 +172,13 @@ public class NewTask extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         });
+    }
+
+    public void setTaskItem(TaskItem taskItem) {
+        this.taskItem = taskItem;
+        etTask.setText(taskItem.getTask());
+        etDate.setText(taskItem.getDate());
+        etDesc.setText(taskItem.getDescription());
+
     }
 }

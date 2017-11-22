@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ToDoApp.iml" filepath="$PROJECT_DIR$/ToDoApp.iml" />
+      <module fileurl="file://C:\ASProjects\ToDoAppFinal\ToDoApp.iml" filepath="C:\ASProjects\ToDoAppFinal\ToDoApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ToDoAppFinal.iml" filepath="$PROJECT_DIR$/ToDoAppFinal.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

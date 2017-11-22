@@ -12,17 +12,35 @@ public class TaskItem {
     private String date;
     private String time;
     private String description;
+    private boolean done;
+    private boolean res;
+    private String resmsg;
 
-    public TaskItem(){
+
+    public TaskItem() {
 
     }
 
-    public TaskItem(int id, String task, String date, String time, String description){
-        this.id=id;
-        this.task=task;
-        this.date=date;
-        this.time=time;
-        this.description=description;
+    public TaskItem(int id, String task, String description, String date, String time) {
+        this.id = id;
+        this.task = task;
+        this.date = date;
+        this.time = time;
+        this.description = description;
+        this.done= false;
+        this.res= false;
+        this.resmsg= null;
+    }
+
+    public TaskItem(int id, String task, String description, String date, String time, boolean done, boolean res, String resmsg) {
+        this.id = id;
+        this.task = task;
+        this.date = date;
+        this.time = time;
+        this.description = description;
+        this.done= false;
+        this.res= false;
+        this.resmsg= null;
 
     }
 
@@ -64,5 +82,29 @@ public class TaskItem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
+    public boolean isRes() {
+        return res;
+    }
+
+    public void setRes(boolean res) {
+        this.res = res;
+    }
+
+    public String getResmsg() {
+        return resmsg;
+    }
+
+    public void setResmsg(String resmsg) {
+        this.resmsg = resmsg;
     }
 }
