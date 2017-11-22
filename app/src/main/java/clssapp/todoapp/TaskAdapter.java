@@ -17,7 +17,6 @@ import java.util.ArrayList;
  */
 public class TaskAdapter extends ArrayAdapter<TaskItem> {
 
-
     public TaskAdapter(Context context, ArrayList<TaskItem> users) {
         super(context, 0, users);
     }
@@ -37,7 +36,6 @@ public class TaskAdapter extends ArrayAdapter<TaskItem> {
         TextView tvTime = (TextView) convertView.findViewById(R.id.tvTime);
         TextView tvDesc = (TextView) convertView.findViewById(R.id.tvDesc);
         CheckBox cbItemDone = (CheckBox) convertView.findViewById(R.id.cbItemDone);
-        //TextView tvDesc = (TextView) convertView.findViewById(R.id.tv);
 
         // Populate the data into the template view using the data object
         tvTask.setText(taskItem.getTask());

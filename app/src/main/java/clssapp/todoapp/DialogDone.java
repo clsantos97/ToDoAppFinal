@@ -67,7 +67,6 @@ public class DialogDone extends DialogFragment implements Button.OnClickListener
         btnCancel = (Button) rootView.findViewById(R.id.btnCancel);
     }
 
-
     public void setTaskItem(TaskItem taskItem) {
         this.taskItem = taskItem;
     }

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private static ArrayList<TaskItem> mockData = new ArrayList<>();
     private static MainActivity instance;
+    private MenuItem config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Init gui elements
+
         lvToDo = (ListView) findViewById(R.id.lvToDo);
         btnAdd = (FloatingActionButton) findViewById(R.id.fab);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -65,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
         showAll();
     }
 
-
     public void initMockData(){
         mockData.add(new TaskItem(1,"Cita Osakidetza","Consulta","01/12/17","10:00"));
         mockData.add(new TaskItem(2,"Entrega de proyecto","Presentacion aula 21","05/12/17","09:00"));
         mockData.add(new TaskItem(3,"Devolver libro","Devolver El ultimo mohicano a biblioteca ","10/12/17","17:00"));
     }
+
     public void initDb() {
 
         // Init DB
@@ -79,11 +82,8 @@ public class MainActivity extends AppCompatActivity {
         db.execSQL("DROP TABLE item");
         db.execSQL("CREATE TABLE IF NOT EXISTS item(" +
                 "item_id INTEGER PRIMARY KEY,task VARCHAR,description VARCHAR, date VARCHAR, time VARCHAR, done BOOLEAN, result BOOLEAN, resmsg VARCHAR);");
-        db.execSQL("DELETE FROM item");
+        //db.execSQL("DELETE FROM item");
 
-        //if (!isDbItemsEmpty()) {
-
-        //}
     }
 
     @Override
@@ -171,13 +171,10 @@ public class MainActivity extends AppCompatActivity {
                         Boolean.parseBoolean(c.getString(6)), c.getString(7)));
                 System.out.println(c.getString(5));
             }
-            //System.out.println(c.getString(0) + " " + c.getString(1) + " - " + c.getString(2) + "   " + c.getString(3) + "  " + c.getString(4));
         }
-
         // Create the adapter to convert the array to views
         TaskAdapter taskAdapter = new TaskAdapter(this, taskList);
         // Attach the adapter to a ListView
-
         lvToDo.setAdapter(taskAdapter);
 
 
@@ -232,10 +229,9 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                     logger.info("Error al insertar mockdata.");
                 }
-
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             logger.info("Error al añadir datos de prueba");
         }
     }
@@ -288,6 +284,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void launchBrowser(){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://www.google.es"));
+        startActivity(browserIntent);
+    }
 
 
 }

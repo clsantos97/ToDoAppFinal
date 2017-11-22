@@ -2,6 +2,7 @@
 
     <string name="app_name">ToDoApp</string>
     <string name="action_settings">Configuración</string>
+    <string name="action_help">Ayuda</string>
     <string name="tv_name">¿Tarea a realizar?</string>
     <string name="tv_date">Fecha limite:</string>
     <string name="ab_item_done">Hecho</string>
