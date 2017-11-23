@@ -1,12 +1,14 @@
 package clssapp.todoapp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * TaskItem model class. (JavaBean)
  * Created by Carlos on 15/11/2017.
+ * @author Carlos Santos
  */
-
-public class TaskItem {
+public class TaskItem implements Serializable{
     private int id;
     private String task;
     private String date;
@@ -38,11 +40,27 @@ public class TaskItem {
         this.date = date;
         this.time = time;
         this.description = description;
-        this.done= false;
-        this.res= false;
-        this.resmsg= null;
+        this.done= done;
+        this.res= res;
+        this.resmsg= resmsg;
 
     }
+
+    public String toString(){
+        String item = "";
+        item+="id: "+String.valueOf(id);
+        item+="  task: "+task;
+        item+="  desc: "+description;
+        item+="  date: "+date;
+        item+="  time: "+time;
+        item+="  done: "+String.valueOf(done);
+        item+="  res: "+String.valueOf(res);
+        item+="  msg: "+resmsg;
+
+        return item;
+    }
+
+
 
     public int getId() {
         return id;

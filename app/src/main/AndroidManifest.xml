@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".NewTask"></activity>
+        <activity android:name=".UpdateTask"></activity>
     </application>
 
 </manifest>

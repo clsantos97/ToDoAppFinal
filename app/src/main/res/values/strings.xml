@@ -8,5 +8,14 @@
     <string name="ab_item_done">Hecho</string>
     <string name="tv_desc">Descripción:</string>
     <string name="btn_add">Crear:</string>
+    <string name="tv_task_done">¿Tarea Realizada?</string>
+    <string name="gn_yes">Si</string>
+    <string name="gn_no">No</string>
+    <string name="gn_accept">Aceptar</string>
+    <string name="gn_cancel">Cancelar</string>
+    <string name="tv_comment">Comentario:</string>
+    <string name="tv_emptytext">Sin tareas!</string>
+
+
 
 </resources>

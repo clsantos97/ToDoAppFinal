@@ -9,6 +9,14 @@
     tools:context="clssapp.todoapp.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <TextView
+        android:id="@+id/emptyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_emptytext"
+        android:textAlignment="center"
+        android:visibility="gone"/>
+
     <ListView
         android:id="@+id/lvToDo"
         android:layout_width="match_parent"
@@ -23,5 +31,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:listSelector="@drawable/list_color_selector"
         android:divider="@android:color/transparent"
-        android:dividerHeight="8dp" />
+        android:dividerHeight="8dp" >
+
+    </ListView>
 </android.support.constraint.ConstraintLayout>

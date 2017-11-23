@@ -45,9 +45,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_weight="1"
+                        android:editable="true"
                         android:ems="10"
-                        android:maxLength="50"
-                        android:inputType="textPersonName" />
+                        android:textCursorDrawable="@null"
+                        android:background="@null"
+                        android:inputType="textPersonName"
+                        android:maxLength="50"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -88,8 +91,11 @@
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_weight="2"
+                        android:editable="false"
                         android:ems="10"
                         android:inputType="none"
+                        android:textCursorDrawable="@null"
+                        android:background="@null"
                         android:maxLength="10"/>
 
                     <ImageButton
@@ -126,6 +132,7 @@
                     android:id="@+id/etDesc"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
+                    android:editable="true"
                     android:ems="10"
                     android:gravity="top"
                     android:inputType="textMultiLine"

@@ -23,7 +23,9 @@ import android.widget.TextView;
 
 
 /**
+ * Custom DialogFragment for ending task.
  * Created by Carlos on 11/22/2017.
+ * @author Carlos Santos
  */
 public class DialogDone extends DialogFragment implements Button.OnClickListener{
     DialogDoneInterface ddi;
@@ -35,6 +37,9 @@ public class DialogDone extends DialogFragment implements Button.OnClickListener
     private Button btnAccept;
     private Button btnCancel;
 
+    /**
+     * Set custom dialog size
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -44,6 +49,13 @@ public class DialogDone extends DialogFragment implements Button.OnClickListener
         getDialog().getWindow().setLayout(width, height);
     }
 
+    /**
+     * Setup dialog
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.dialog_layout_done, container, false);
@@ -51,12 +63,17 @@ public class DialogDone extends DialogFragment implements Button.OnClickListener
         findViewsById(rootView);
         btnAccept.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+        rbPos.setChecked(true);
 
 
         getDialog().setTitle("Simple Dialog");
         return rootView;
     }
 
+    /**
+     * Get gui references
+     * @param rootView
+     */
     private void findViewsById(View rootView) {
 
         etMsg = (EditText) rootView.findViewById(R.id.etMsg);
@@ -67,10 +84,18 @@ public class DialogDone extends DialogFragment implements Button.OnClickListener
         btnCancel = (Button) rootView.findViewById(R.id.btnCancel);
     }
 
+    /**
+     * Set ending task item
+     * @param taskItem
+     */
     public void setTaskItem(TaskItem taskItem) {
         this.taskItem = taskItem;
     }
 
+    /**
+     * On click actions
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         boolean res = false;
@@ -80,12 +105,16 @@ public class DialogDone extends DialogFragment implements Button.OnClickListener
 
             }
             MainActivity.getInstance().setDone(true, res, etMsg.getText().toString(),taskItem.getId());
-            MainActivity.getInstance().showAll();
+            //MainActivity.getInstance().getAllItems();
         }
 
         dismiss();
+
     }
 
+    /**
+     * Comunication with caller
+     */
     public interface DialogDoneInterface{
         public void onFinishDialog(boolean value);
     }

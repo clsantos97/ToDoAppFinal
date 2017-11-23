@@ -37,8 +37,7 @@ public class UpdateTask extends AppCompatActivity implements View.OnClickListene
     private LinearLayout lyDate;
     private TaskItem taskItem = new TaskItem();
 
-
-
+    /* **************************************** INIT ******************************************** */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,28 +50,27 @@ public class UpdateTask extends AppCompatActivity implements View.OnClickListene
         findViewsById();
         addListeners();
 
+        taskItem = (TaskItem)getIntent().getSerializableExtra("TaskItem");
+
+        etTask.setText(taskItem.getTask());
+        etDesc.setText(taskItem.getDescription());
+        etDate.setText(taskItem.getDate());
+
+        etTask.setFocusable(true);
+        etDesc.setFocusable(true);
+        etDate.setFocusable(true);
+
         etDate.setInputType(InputType.TYPE_NULL);
         etDate.setTextIsSelectable(false);
+
 
         cal= Calendar.getInstance();
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_new_task, menu);
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId() == android.R.id.home){
-            this.finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
+    /**
+     * Get gui references
+     */
     private void findViewsById() {
         etTask = (EditText) findViewById(R.id.etTask);
         etTask.setInputType(InputType.TYPE_NULL);
@@ -93,7 +91,27 @@ public class UpdateTask extends AppCompatActivity implements View.OnClickListene
         lyDate = (LinearLayout) findViewById(R.id.lyDate);
     }
 
+    /* ************************************** LISTENERS ***************************************** */
+    /** LISTENERS **/
+    public void addListeners(){
+        // CB Date
+        cbDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    lyDate.setVisibility(View.VISIBLE);
+                }else{
+                    lyDate.setVisibility(View.GONE);
+                    etDate.setText("");
+                }
+            }
+        });
+    }
+    /**
+     * On click actions
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         if(view == etDate || view == btnDate){
@@ -102,6 +120,34 @@ public class UpdateTask extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    /**
+     * Inflate the menu, this adds items to the action bar if it is present.
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_update_task, menu);
+        return true;
+    }
+
+    /**
+     * Actions for menu item selected.
+     * @param item
+     * @return
+     */
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == android.R.id.home){
+            this.finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /* *************************************** ACTIONS ****************************************** */
+    /**
+     * Show datepicker
+     */
     public void showDateDialog(){
         DatePickerDialog.OnDateSetListener dpd = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -121,6 +167,9 @@ public class UpdateTask extends AppCompatActivity implements View.OnClickListene
         d.show();
     }
 
+    /**
+     * Update task
+     */
     public void updateTask(MenuItem item){
             // TODO EditText Validations
 
@@ -129,9 +178,9 @@ public class UpdateTask extends AppCompatActivity implements View.OnClickListene
                 try{
                     i.putExtra("TASK", etTask.getText().toString());
                     i.putExtra("DESCRIPTION", etDesc.getText().toString());
-
                     i.putExtra("DATE", etDate.getText().toString());
                     i.putExtra("TIME", "15:00");
+                    i.putExtra("ID", String.valueOf(taskItem.getId()));
 
 
                     setResult(RESULT_OK, i);
@@ -143,6 +192,10 @@ public class UpdateTask extends AppCompatActivity implements View.OnClickListene
             }
     }
 
+    /**
+     * Check if form is valid
+     * @return form validity
+     */
     private boolean formValid(){
         boolean valid = true;
 
@@ -157,23 +210,11 @@ public class UpdateTask extends AppCompatActivity implements View.OnClickListene
         return valid;
     }
 
-    /** LISTENERS **/
-    public void addListeners(){
-        // CB Date
-        cbDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    lyDate.setVisibility(View.VISIBLE);
-                }else{
-                    lyDate.setVisibility(View.GONE);
-                    etDate.setText("");
-                }
-            }
-        });
-    }
-
+    /**
+     *
+     * @param taskItem
+     */
     public void setTaskItem(TaskItem taskItem) {
         this.taskItem = taskItem;
         etTask.setText(taskItem.getTask());

@@ -2,6 +2,7 @@ package clssapp.todoapp;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +14,26 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
+ * Custom Adapter for List of TaskItem.
  * Created by Carlos on 15/11/2017.
+ *
+ * @author Carlos Santos
  */
 public class TaskAdapter extends ArrayAdapter<TaskItem> {
+
 
     public TaskAdapter(Context context, ArrayList<TaskItem> users) {
         super(context, 0, users);
     }
 
+    /**
+     * Setup view
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
@@ -35,7 +48,7 @@ public class TaskAdapter extends ArrayAdapter<TaskItem> {
         TextView tvDate = (TextView) convertView.findViewById(R.id.tvDate);
         TextView tvTime = (TextView) convertView.findViewById(R.id.tvTime);
         TextView tvDesc = (TextView) convertView.findViewById(R.id.tvDesc);
-        CheckBox cbItemDone = (CheckBox) convertView.findViewById(R.id.cbItemDone);
+        final CheckBox cbItemDone = (CheckBox) convertView.findViewById(R.id.cbItemDone);
 
         // Populate the data into the template view using the data object
         tvTask.setText(taskItem.getTask());
@@ -43,15 +56,12 @@ public class TaskAdapter extends ArrayAdapter<TaskItem> {
         tvTime.setText(taskItem.getTime());
         tvDesc.setText(taskItem.getDescription());
 
-        System.out.println("isdone: "+taskItem.isDone());
-        if(taskItem.isDone()){
-
+        //System.out.println(taskItem.toString());
+        if (taskItem.isDone()) {
             cbItemDone.setChecked(true);
-        }else{
+        } else {
             cbItemDone.setChecked(false);
         }
-
-        // Return the completed view to render on screen
 
         // Styling font
         Typeface subtitleTypeFace = Typeface.createFromAsset(getContext().getAssets(), "fonts/JosefinSans-Bold.ttf");
@@ -64,28 +74,33 @@ public class TaskAdapter extends ArrayAdapter<TaskItem> {
         tvTime.setTypeface(subtitleTypeFace);
         tvDesc.setTypeface(detailTypeFace);
 
-        // Add listeners
-        cbItemDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
+        cbItemDone.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    try{
+            public void onClick(View view) {
+                if (cbItemDone.isChecked()) {
+                    try {
                         final TaskItem taskI = taskItem;
                         MainActivity.getInstance().showDialogDone(taskI);
-                    }catch(Exception ex){
+                        cbItemDone.setChecked(false);
+                    } catch (Exception ex) {
                         ex.printStackTrace();
 
                     }
-
-                }else{
-                    // TODO actualizar estado, recargar lista.
                 }
             }
         });
 
+        tvTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.getInstance().openUpdateTask(taskItem);
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+            }
+        });
 
 
         return convertView;
     }
+
 }

@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="clssapp.todoapp.MainActivity">
     <item
-        android:id="@+id/action_settings"
-        android:onClick="launchBrowser"
+        android:id="@+id/action_help"
         android:orderInCategory="100"
         android:title="@string/action_help"
         app:showAsAction="never"/>
